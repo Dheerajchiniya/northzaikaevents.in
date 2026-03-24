@@ -753,29 +753,30 @@
   </footer>
 
   <script>
-    // ========== EmailJS Configuration ==========
-    // EMAIL TEMPLATE SETUP REQUIRED
-    // Go to: https://dashboard.emailjs.com/ → Templates → Edit template_5w2819s
-    // 
-    // SETUP INSTRUCTIONS:
-    // 1. Set "From Name": NorthZaika Events (or any name)
-    // 2. Set "From Email": Northzaika.catering@gmail.com
-    // 3. Set "To Email": {{user_email}}  (Form user's email address)
-    // 4. Set "CC": dapps0144@gmail.com   (For testing)
-    // 5. In the email body, use these variables:
-    //    {{user_name}}, {{user_email}}, {{user_phone}}, {{event_type}}, 
-    //    {{event_date}}, {{message}}
-    // 6. Save and Deploy the template
-    
-    const EMAILJS_PUBLIC_KEY = "NIA6CJzGaEsew-cQL";
-    const EMAILJS_SERVICE_ID = "service_8r4ltxb";
-    const EMAILJS_TEMPLATE_ID = "template_h6pzvfo";
-    const FROM_EMAIL = "Northzaika.catering@gmail.com";
-    
-    // Initialize EmailJS
-    if (EMAILJS_PUBLIC_KEY !== "NIA6CJzGaEsew-cQL") {
-      emailjs.init(EMAILJS_PUBLIC_KEY);
-    }
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const data = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    eventType: document.getElementById("eventType").value,
+    date: document.getElementById("date").value,
+    message: document.getElementById("message").value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbwvDPyk_hUgnryB5kEo83JcCML9RVgbHMaYeDiS5IVRHgKw-vIQVFHasbQF9XiQiCP3EQ/exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(res => res.text())
+  .then(() => {
+    alert("Data Saved ✅");
+  })
+  .catch(() => {
+    alert("Error ❌");
+  });
+});
 
     // ========== Handle Form Submission ==========
     async function handleSubmit(event) {
